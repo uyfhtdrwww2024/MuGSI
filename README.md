@@ -39,7 +39,7 @@ python run_Model_TU.py --use_KD  --device_id 0 --pathLength 8 --max_epochs 350 -
 ```
 
 ## Overall Framework
-![Description of the image]([https://github.com/uyfhtdrwww2024/MuGSI/blob/main/Model.pdf])
+![Description of the image]([https://github.com/uyfhtdrwww2024/MuGSI/blob/main/Model.png])
 
 
 
