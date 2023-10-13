@@ -14,6 +14,10 @@ To load and preprocess datasets, use the following command:
 python DataPreTransform_TU.py --dataset $dataset_name$
 ```
 
+## Download pre-trained GNN models
+
+To download the pre-trained GNN models as teachers, go to xxx
+
 ## Run MuGSI
 
 To run MuGSI, here is an example that uses LaPE, the student model is MLP, teacher model is GIN, the hyper-parameters to control graph-distillation, cluster distillation and node distillation are indicated by `--graphPoolingReg`, `--ClusterMatchingReg` and `--RandomWalkConsistencyReg` respectively. 
