@@ -47,7 +47,13 @@ python run_Model_TU.py --use_KD  --device_id 0 --pathLength 8 --max_epochs 350 -
   <br />
 </p>
 
+## Results
 
+<p align="center">
+  <br />
+  <img src="results.png" width="800">
+  <br />
+</p>
 
 
 
