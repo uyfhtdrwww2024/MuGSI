@@ -9,6 +9,7 @@ To set up the virtual environment for our project, use _requirements.txt_ to ins
 ## Load and pre-process datasets
 
 To load and preprocess datasets, use the following command:
+
 ```bash
 python DataPreTransform_TU.py --dataset $dataset_name$
 ```
@@ -39,7 +40,13 @@ python run_Model_TU.py --use_KD  --device_id 0 --pathLength 8 --max_epochs 350 -
 ```
 
 ## Overall Framework
-![Description of the image]([https://github.com/uyfhtdrwww2024/MuGSI/blob/main/Model.png])
+
+<p align="center">
+  <br />
+  <img src="Model.png" width="800">
+  <br />
+</p>
+
 
 
 
