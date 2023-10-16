@@ -16,7 +16,7 @@ python DataPreTransform_TU.py --dataset $dataset_name$
 
 ## Download pre-trained GNN models
 
-To download the pre-trained GNN models as teachers, go to xxx
+To download the pre-trained GNN models as teachers, go to [this link](https://drive.google.com/file/d/1QYlPVbzJua4Ql5PBIl2wtciB2f3f7bnb/view?usp=drive_link) to download the pre-trained GNN models, unzip it and put the `best_models/` under the root directory.
 
 ## Run MuGSI
 
