@@ -131,23 +131,6 @@ class PL_UniversalModel_TU(pl.LightningModule):
     def on_train_epoch_start(self) -> None:
         self.train_start_time = time()
     
-        # val = np.mean(np.asarray(self.loss_cache))
-        # self.per_epoch_loss.append(val)
-        # self.loss_cache = []
-        # if not self.use_KD:
-        #     if self.current_epoch== self.max_epochs-1:
-        #         info = f"Not using KD, Seed:{self.seed}, ExpId:{self.random_id},model name:{self.stu},num hops:{self.num_hops}, BestTestAccuracy: {self.best_valid_acc:6f} \n"
-        #         losses = json.dumps(self.per_epoch_loss)
-        #         write_results_to_file(f"{self.loss_saving_path}",f"{self.dataset}_student_{self.stu}_expId_{self.random_id}_noKD.txt",info+losses)
-        #     # print (colored(f'Dataset:{self.dataset},fold:{self.fold_index}, Not using KD,Seed:{self.seed}, ExpId:{self.random_id},model name:{self.stu},num hops:{self.num_hops}, TestAccuracy at epoch:{self.current_epoch} is {self.best_valid_acc:6f}:','red','on_yellow'))
-        # else:
-        #     info = f"Dataset:{self.dataset},fold_index:{self.fold_index}, Seed:{self.seed}, expId:{self.expId},student:{self.stu}, teacher:{self.teacher}, useSoftLabel:{self.useSoftLabel}, useNodeSim:{self.useNodeSim},useLearnableGraphPooling:{self.useGraphPooling}, useNodeFeatureAlign:{self.useNodeFeatureAlign},useClusterMatching: {self.useClusterMatching}, useRandomWalkConsistency:{self.useRandomWalkConsistency}, useDropoutEdge:{self.useDropoutEdge}, useNCE:{self.useNCE}, "
-        #     info2 = f"softLabelReg:{self.softLabelReg}, nodeSimReg:{self.nodeSimReg}, NodeFeatureReg:{self.NodeFeatureReg}, ClusterMatchingReg:{self.ClusterMatchingReg}, graphPoolingReg:{self.graphPoolingReg}, pathLength:{self.pathLength}, RandomWalkConsistencyReg:{self.RandomWalkConsistencyReg}, NCEReg:{self.NCEReg},use_AdditionalAttr:{self.use_AdditionalAttr}, BestValidAccuracy: {self.best_valid_acc:6f} \n"
-        #     losses = json.dumps(self.per_epoch_loss)
-        #     info = info+info2 + losses
-        #     if self.current_epoch== self.max_epochs-1:
-        #         write_results_to_file(f"{self.loss_saving_path}",f"{self.dataset}_student_{self.stu}_teacher_{self.teacher}_expId_{self.random_id}.txt",info)
-
     
     def training_step(self, batch, batch_idx):
         # x, y,batch = batch.x,batch.y, batch.batch
@@ -162,9 +145,6 @@ class PL_UniversalModel_TU(pl.LightningModule):
             # Classification problem: use log softmax loss
             loss = F.nll_loss(F.log_softmax(y_pred, dim=1), y)
             self.loss_cache.append(loss.detach().item())
-        else:
-            # To do: use binary cross entropy loss
-            pass
         
         
         if not self.use_KD:
@@ -252,11 +232,6 @@ class PL_UniversalModel_TU(pl.LightningModule):
                     # print (f"clusterMatchingLoss:{clusterMatchingLoss}.....")
                 total_loss += clusterMatchingLoss*self.ClusterMatchingReg/num_graphs
             
-            # print ("qwerasf")
-            # print (loss,self.softLabelReg*softLabelLoss,self.nodeSimReg*nodeSimLoss,self.NodeFeatureReg*featureAlignmentLoss,self.RandomWalkConsistencyReg*rwWalkLoss,self.MixUpReg*mixUpLoss,self.ClusterMatchingReg*clusterMatchingLoss)
-            # total_loss = loss + self.softLabelReg*softLabelLoss + self.nodeSimReg*nodeSimLoss+ self.NodeFeatureReg*featureAlignmentLoss 
-            # + self.RandomWalkConsistencyReg*rwWalkLoss + self.MixUpReg*mixUpLoss + self.ClusterMatchingReg*clusterMatchingLoss
-            # total_loss = loss + self.NodeFeatureReg*featureAlignmentLoss + self.RandomWalkConsistencyReg*rwWalkLoss
             loss_dict = {'train_loss':total_loss}
             self.log_dict(loss_dict,prog_bar=True,on_epoch=True)
             return total_loss
