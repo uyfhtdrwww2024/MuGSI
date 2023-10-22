@@ -73,7 +73,7 @@ class PL_UniversalModel_TU(pl.LightningModule):
         
         self.use_KD = use_KD
         if use_KD:
-            if kargs["studentModelName"] == "MLP" or kargs["studentModelName"] == "SKGCN":
+            if kargs["studentModelName"] == "MLP":
                 self.linear_proj = nn.Linear(2*kargs["hidden_dim"], kargs['teacher_hidden_dim'])
                 if kargs["useNCE"]:
                     print ("useNCE",kargs["useNCE"])
